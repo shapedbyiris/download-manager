@@ -86,11 +86,11 @@ if the manager has been configured for sending notifications, the following noti
 
 ```swift
 public extension Notification.Name {
-    static let downloadAddedToQueue = Notification.Name("DownloadAddedToQueue")
-    static let downloadRemovedFromQueue = Notification.Name("DownloadRemovedFromQueue")
-    static let downloadFinished = Notification.Name("DownloadFinished")
-    static let downloadProgress = Notification.Name("DownloadProgress")
-    static let downloadFailed = Notification.Name("DownloadFailed")
+    static let downloadAddedToQueue = Notification.Name("com.shapedbyiris.downloadAddedToQueue")
+    static let downloadRemovedFromQueue = Notification.Name("com.shapedbyiris.downloadRemovedFromQueue")
+    static let downloadFinished = Notification.Name("com.shapedbyiris.downloadFinished")
+    static let downloadProgress = Notification.Name("com.shapedbyiris.downloadProgress")
+    static let downloadFailed = Notification.Name("com.shapedbyiris.downloadFailed")
 }
 ```
 
@@ -106,7 +106,7 @@ All notifications will be sent with the `object` property filled with the follow
 
 ## Background downloads (iOS)
 
-The Download Manager can continue downloads while the app is in background
+The Download Manager can continue downloads while the app is in background. 
 Different app states affect how your app interacts with the background download. In iOS, your app could be in the foreground, suspended, or even terminated by the system
 
 As per `https://developer.apple.com/documentation/foundation/url_loading_system/downloading_files_in_the_background` you need to manually save the system completion handler for background URL session events and pass it on to the Download Manager

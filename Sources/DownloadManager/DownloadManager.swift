@@ -14,16 +14,16 @@ public typealias DownloadProgressBlock = (_ progress: Float) -> Void
 public typealias BackgroundDownloadCompletionHandler = () -> Void
 
 public extension Notification.Name {
-    static let downloadAddedToQueue = Notification.Name("DownloadAddedToQueue")
-    static let downloadRemovedFromQueue = Notification.Name("DownloadRemovedFromQueue")
-    static let downloadFinished = Notification.Name("DownloadFinished")
-    static let downloadProgress = Notification.Name("DownloadProgress")
-    static let downloadFailed = Notification.Name("DownloadFailed")
+    static let downloadAddedToQueue = Notification.Name("com.shapedbyiris.downloadAddedToQueue")
+    static let downloadRemovedFromQueue = Notification.Name("com.shapedbyiris.downloadRemovedFromQueue")
+    static let downloadFinished = Notification.Name("com.shapedbyiris.downloadFinished")
+    static let downloadProgress = Notification.Name("com.shapedbyiris.downloadProgress")
+    static let downloadFailed = Notification.Name("com.shapedbyiris.downloadFailed")
 }
 
 public class DownloadItem: Codable {
-    var remoteURL: URL
-    let destinationURL: URL?
+    let remoteURL: URL
+    let destinationURL: URL
     var retryCount: Int = 0
 
     private enum CodingKeys: CodingKey {
@@ -36,7 +36,7 @@ public class DownloadItem: Codable {
     var progressBlock: DownloadProgressBlock?
 
     init(remoteURL: URL,
-         destinationURL: URL?,
+         destinationURL: URL,
          progressBlock: DownloadProgressBlock?,
          completionBlock: DownloadCompletionBlock?) {
         self.remoteURL = remoteURL
@@ -92,7 +92,7 @@ public final class DownloadManager: NSObject, URLSessionDelegate, URLSessionDown
     }
 
     public func addDownload(url: URL,
-                            destinationURL: URL? = nil,
+                            destinationURL: URL,
                             onProgress progressBlock: DownloadProgressBlock? = nil,
                             onCompletion completionBlock: @escaping DownloadCompletionBlock) {
         guard backingStore.downloadItem(withURL: url) == nil else {
@@ -170,7 +170,7 @@ public final class DownloadManager: NSObject, URLSessionDelegate, URLSessionDown
 
         do {
             let fileName = downloadTask.response?.suggestedFilename ?? download.remoteURL.lastPathComponent
-            let destinationURL = download.destinationURL ?? FileManager.default.temporaryDirectory
+            let destinationURL = download.destinationURL
             let url = try FileManager.default.moveFile(at: location, to: destinationURL, fileName: fileName, overwrite: true)
 
             os_log(verbosity: configuration.logVerbosity, type: .debug, format: "Download complete: %@", args: download.remoteURL.lastPathComponent)
