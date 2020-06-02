@@ -96,7 +96,7 @@ public extension Notification.Name {
 
 All notifications will be sent with the `object` property filled with the following:
 
-| Property | Description |
+| Notification Name | `object` contains |
 | :---------- | :------------- |
 `downloadAddedToQueue` | url added to the download queue
 `downloadRemovedFromQueue` | url removed from the download queue. This could be from a cancellation, completion or failure
