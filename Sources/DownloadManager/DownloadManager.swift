@@ -24,7 +24,7 @@ public extension Notification.Name {
 public class DownloadItem: Codable {
     let remoteURL: URL
     let destinationURL: URL
-    var retryCount: Int = 0
+    fileprivate(set) var retryCount: Int = 0
 
     private enum CodingKeys: CodingKey {
         case remoteURL
