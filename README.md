@@ -72,12 +72,13 @@ public struct DownloadManagerConfig {
 ```swift
 DownloadManager.shared.configuration = DownloadManagerConfiguration()
 ```
-
-`maximumRetries` - the manager will retry each download this number of times until it will trigger a failure
-`exponentialBackoffMultiplier` - each time a download is retried it is rescheduled after an increasing number of seconds: `maximumRetries * exponentialBackoffMultiplier`
-`usesNotificationCenter` - if true, the Download Manager will also send notifications via NotificationCenter for download events
-`showsLocalNotifications` - currently a debugging feature and needs Info.plist support to show a local notification for download events. Useful for background downloads. 
-`logVerbosity` - by default the manager doesn't output any logs to console as they can be quite verbose. To change this use one of `.none`, `debug` - all messages including progress, `error` - only errors are logged to console
+| Property | Description |
+| :---------- | :------------- |
+`maximumRetries` | the manager will retry each download this number of times until it will trigger a failure
+`exponentialBackoffMultiplier` | each time a download is retried it is rescheduled after an increasing number of seconds: `maximumRetries * exponentialBackoffMultiplier`
+`usesNotificationCenter` | if true, the Download Manager will also send notifications via NotificationCenter for download events
+`showsLocalNotifications` | currently a debugging feature and needs Info.plist support to show a local notification for download events. Useful for background downloads. 
+`logVerbosity` | by default the manager doesn't output any logs to console as they can be quite verbose. To change this use one of `.none`, `debug` | all messages including progress, `error` - only errors are logged to console
 
 ## Notifications
 
@@ -95,11 +96,13 @@ public extension Notification.Name {
 
 All notifications will be sent with the `object` property filled with the following:
 
-`downloadAddedToQueue` - url added to the download queue
-`downloadRemovedFromQueue` - url removed from the download queue. This could be from a cancellation, completion or failure
-`downloadFinished` - a tuple consisting of `(locallyDownloadedFileURL, remoteURL)`
-`downloadProgress` - a tuple consisting of `(progress, remoteURL)`, where progress is a Float
-`downloadFailed` - url that failed to download after `DownloadManagerConfig.maximumRetries`
+| Property | Description |
+| :---------- | :------------- |
+`downloadAddedToQueue` | url added to the download queue
+`downloadRemovedFromQueue` | url removed from the download queue. This could be from a cancellation, completion or failure
+`downloadFinished` | a tuple consisting of `(locallyDownloadedFileURL, remoteURL)`
+`downloadProgress` | a tuple consisting of `(progress, remoteURL)`, where progress is a Float
+`downloadFailed` | url that failed to download after `DownloadManagerConfig.maximumRetries`
 
 ## Background downloads (iOS)
 
